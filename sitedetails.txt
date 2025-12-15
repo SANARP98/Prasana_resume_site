@@ -1,0 +1,186 @@
+## OutlineCV: Site Flow & Design Analysis
+
+### **Overall Purpose**
+OutlineCV is a clean, minimalist portfolio/resume website template for a content-first professional (Sasha Mozdir, an editorial systems specialist and entrepreneur). Built with Framer, it showcases work through a narrative-driven approach rather than traditional CV format.
+
+***
+
+### **Site Architecture & Navigation Flow**
+
+#### **Header Navigation (Persistent Across Pages)**
+- **Social Links** (top-left): Framer portfolio, LinkedIn, X/Twitter, Instagram - all accessible via minimalist icon buttons
+- **Primary CTA Buttons** (top-right):
+  - "CV" button - downloads PDF resume
+  - "HELLO@TMPL.DIGITAL" - email contact link
+
+#### **Page Structure**
+
+**1. HOME PAGE** (Landing/Main Profile)
+The homepage follows a content-first, narrative approach with clear section hierarchy:
+
+- **Profile Introduction**
+  - Circular profile photo (neon yellow-green accent)
+  - Name: "Sasha Mozdir"
+  - Title: "ENTREPRENEUR"
+  - Personal bio with linked keywords (Chemimedia agency, locations: Georgia, Canada, US)
+  - Tone: Conversational and direct
+
+- **Educational Background Section (STUDY)**
+  - Philosophy & Design degree from Parsons
+  - Dual degree from Voldsmiths, University of London
+  - Content architecture training at Cyper Island
+  - Uses emoji badges for visual distinction
+
+- **Professional Experience Section (EXPERIENCE)**
+  - 3 highlighted roles: Coole, Plitch, Sportics
+  - Brief role descriptions with linked company names
+  - Emphasis on content strategy and systems work
+  - Features inline tags (e.g., "storytelling" as a hyperlink)
+
+- **Tools & Skills Section (INFO)**
+  - Lists tools used: Notion, Framer, Figma, SEO platforms, ChatGPT
+  - Explains work philosophy and approach
+
+- **Case Studies Showcase (CASES)**
+  - Grid of 4 featured case studies displayed with:
+    - Colorful icon backgrounds (dark gray, pink, purple, cyan, red, lime)
+    - White asterisk symbol in each icon
+    - Case title (clickable)
+    - Date (MM/DD/YY format)
+    - Project type or company name (NDA badges for confidential work)
+  - "ALL" button leads to full cases archive
+
+- **Footer**
+  - Copyright notice
+  - "ALL CASES" link (central)
+  - "MADE BY" link to template creator
+
+***
+
+**2. CASES PAGE** (/cases)
+A dedicated archive showcasing all case studies in a vertical list format:
+
+- **Navigation**: "HOME" back link at top
+- **Page Title**: "Cases"
+- **List Format**:
+  - All cases displayed as clickable items
+  - Same visual design as homepage (colored icon + title + date + client/type)
+  - Cases visible on initial load: 4 items
+  - "LOAD MORE" button reveals additional cases
+  - After expansion: 8+ cases visible including:
+    - 300 Articles Rebuilt, 1,500+ Illustrations Created (Sportics)
+    - Localizing a Blog Across 5 Languages (SAAS)
+    - Building a Semi-Automated Blog with AI + Human Review (Prody)
+    - Turning a Corporate Blog Into a Brand Statement (CMS13)
+
+***
+
+**3. CASE STUDY DETAIL PAGE** (/cases/[case-slug])
+Individual case pages follow a structured narrative format:
+
+- **Navigation**: "HOME" back link
+- **Header**:
+  - Large, clear title
+  - Date and NDA/client info
+  
+- **Body Content Structure**:
+  - **Opening Summary**: Context and scope of work (1-2 paragraphs)
+  - **"What I did"** - Bulleted list of deliverables:
+    - Specific deliverables and implementations
+    - Tools used (e.g., "Structured a modular blog using Framer CMS")
+  - **"Why it matters"** - Business impact and outcomes
+  - **Results** - Tangible achievements with metrics
+
+- **Related Cases Section**: Lists 4 other cases for navigation
+- **Footer**: Links to all cases and template info
+
+***
+
+### **Visual Design Principles**
+
+**Color System**:
+- Minimalist neutral baseline (white background, dark text)
+- Vibrant accent colors for case study icons:
+  - Dark Gray, Pink, Purple, Cyan, Red, Lime Green
+  - Each case gets a distinct color for visual scanning
+- Emoji badges (🔒 NDA, ✨ checkmarks) for quick status identification
+
+**Typography**:
+- Clean, readable sans-serif (appears to be system font or neutral web-safe)
+- Clear hierarchy: Large titles → section headers → body text
+- Generous whitespace between sections
+- Inline links colored in context (blue for clickable text)
+
+**Layout**:
+- Single-column layout (mobile-first responsive design)
+- Maximum line length ~65-70 characters for readability
+- Consistent 16-24px spacing between sections
+- Minimal UI elements - no sidebars or complex navigation
+
+**Interactive Elements**:
+- Subtle hover states on links (implied by design)
+- Loading spinner animation (turquoise circle) when navigating between pages
+- "LOAD MORE" button for progressive content disclosure
+- Framer badge in bottom-right (template attribution)
+
+***
+
+### **Information Architecture**
+
+```
+ROOT (/)
+├── HOME - Profile/About
+│   ├── Featured Cases (4 items)
+│   └── ALL button → /cases
+├── /cases - Case Studies Archive
+│   ├── List view of all cases
+│   └── [Each case is clickable]
+├── /cases/[slug] - Individual Case Detail
+│   ├── Full case narrative
+│   ├── Related cases section
+│   └── Back to /cases option
+├── CV (external download)
+└── Contact (email mailto link)
+```
+
+***
+
+### **User Flow Patterns**
+
+1. **Discovery Flow**:
+   - Land on homepage
+   - Read profile/bio
+   - Scan featured cases
+   - Click "ALL" to explore full case library
+
+2. **Case Study Deep-Dive**:
+   - Browse cases list
+   - Click specific case
+   - Read detailed narrative
+   - See related cases
+   - Navigate to another case or back to list
+
+3. **Contact/Action Flow**:
+   - Email icon in header
+   - CV download option
+   - Social media links at top
+
+***
+
+### **Key Design Strengths**
+
+- **Content-First**: No visual fluff; pure focus on work and narrative
+- **Accessibility**: High contrast, readable typography, logical structure
+- **Portfolio Narrative**: Cases tell a story rather than just listing projects
+- **Template Focus**: Designed by tmpl.lemonsqueezy.com (template creator), so it serves as both portfolio AND product showcase
+- **Minimal but Polished**: Professional yet approachable
+- **Mobile-Optimized**: Single-column layout works well on all screen sizes
+- **Fast Navigation**: Clear pathways between pages; no complex menu systems
+
+***
+
+### **Technical Implementation**
+- **Built with**: Framer (no-code website builder)
+- **Deployment**: Framer-hosted (outlinecv.framer.website)
+- **CMS Integration**: Framer CMS used for case management
+- **Performance**: Optimized Framer site with lazy-loading transitions

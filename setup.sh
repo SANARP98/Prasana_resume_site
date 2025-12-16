@@ -145,13 +145,24 @@ echo ""
 # Step 7: Build Docker image
 print_step "Step 7: Building Docker image..."
 print_info "This may take a few minutes..."
-docker compose build --no-cache
+
+# Detect which docker compose command to use
+if docker compose version &> /dev/null 2>&1; then
+    COMPOSE_CMD="docker compose"
+elif command -v docker-compose &> /dev/null; then
+    COMPOSE_CMD="docker-compose"
+else
+    print_error "Neither 'docker compose' nor 'docker-compose' is available"
+    exit 1
+fi
+
+$COMPOSE_CMD build
 print_success "Docker image built successfully"
 echo ""
 
 # Step 8: Start container with Docker Compose
 print_step "Step 8: Starting application container..."
-docker compose up -d
+$COMPOSE_CMD up -d
 print_success "Container started"
 echo ""
 
@@ -186,6 +197,18 @@ echo ""
 
 # Step 11: Create systemd service for auto-start
 print_step "Step 11: Creating systemd service for auto-start..."
+
+# Determine the full path to docker compose command
+if [ "$COMPOSE_CMD" = "docker compose" ]; then
+    DOCKER_PATH=$(which docker)
+    EXEC_START="$DOCKER_PATH compose up -d"
+    EXEC_STOP="$DOCKER_PATH compose down"
+else
+    COMPOSE_PATH=$(which docker-compose)
+    EXEC_START="$COMPOSE_PATH up -d"
+    EXEC_STOP="$COMPOSE_PATH down"
+fi
+
 sudo tee /etc/systemd/system/prasana-portfolio.service > /dev/null <<EOF
 [Unit]
 Description=Prasana Portfolio Docker Container
@@ -196,8 +219,8 @@ After=docker.service
 Type=oneshot
 RemainAfterExit=yes
 WorkingDirectory=$APP_DIR
-ExecStart=/usr/bin/docker compose up -d
-ExecStop=/usr/bin/docker compose down
+ExecStart=$EXEC_START
+ExecStop=$EXEC_STOP
 StandardOutput=journal
 
 [Install]

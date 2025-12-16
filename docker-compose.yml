@@ -1,25 +1,25 @@
 version: '3.8'
 
 services:
-  web:
+  portfolio:
     build:
       context: .
-      dockerfile: Dockerfile.dev
-    container_name: prasana-cv-dev
+      dockerfile: Dockerfile
+    container_name: prasana-portfolio
+    restart: unless-stopped
     ports:
-      - "3000:3000"
-    volumes:
-      - .:/app
-      - /app/node_modules
-      - /app/.next
+      - "3001:3000"
     environment:
-      - NODE_ENV=development
-      - WATCHPACK_POLLING=true
-    stdin_open: true
-    tty: true
+      - NODE_ENV=production
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
     networks:
-      - app-network
+      - portfolio-network
 
 networks:
-  app-network:
+  portfolio-network:
     driver: bridge

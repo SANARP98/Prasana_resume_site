@@ -1,157 +1,108 @@
-# Quick Start Guide
+# Quick Start Guide - Production Deployment
 
-## 🚀 Get Started in 3 Steps
+## On Your Linux VM
 
-### 1. Start the Development Server
-
+### 1. Clone and Setup
 ```bash
-docker-compose up
+git clone <your-repo-url>
+cd prasana-resume-site
+chmod +x setup.sh
+./setup.sh
 ```
 
-The site will be available at [http://localhost:3000](http://localhost:3000)
-
-### 2. Customize Your Content
-
-Edit these files to make it yours:
-
-#### **Your Profile** - [app/page.tsx](app/page.tsx)
-```typescript
-// Update your name, title, and bio
-<h1 className="text-5xl font-black mb-2">Your Name</h1>
-<p className="text-2xl uppercase text-mediumGray mb-6">Your Title</p>
+### 2. Gather Nginx Info (run these commands and share output)
+```bash
+sudo nginx -t
+ls -la /etc/nginx/sites-available/
+grep -r 'gritgo.in' /etc/nginx/sites-available/
 ```
 
-#### **Your Case Studies** - [data/cases.ts](data/cases.ts)
-```typescript
-// Add your projects
-{
-  slug: "my-awesome-project",
-  title: "My Awesome Project",
-  date: "12/14/25",
-  client: "Client Name",
-  color: "cyan",
-  summary: "What you built and why it matters...",
-  // ... more details
+If you find a gritgo.in config file:
+```bash
+cat /etc/nginx/sites-available/gritgo.in
+# OR
+cat /etc/nginx/sites-enabled/gritgo.in
+```
+
+### 3. Add to Nginx Config
+
+Edit your gritgo.in nginx config:
+```bash
+sudo nano /etc/nginx/sites-available/gritgo.in
+```
+
+Add this inside the `server` block:
+```nginx
+location /portfolio/ {
+    proxy_pass http://localhost:3001/;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_buffering off;
+    proxy_cache_bypass $http_upgrade;
 }
 ```
 
-#### **Social Links** - [components/Navigation.tsx](components/Navigation.tsx)
-```typescript
-// Update your social media links
-<SocialLink href="https://linkedin.com/in/yourprofile" label="LinkedIn" />
-<SocialLink href="https://github.com/yourusername" label="GitHub" />
+### 4. Test and Reload Nginx
+```bash
+sudo nginx -t
+sudo systemctl reload nginx
 ```
 
-#### **Your Resume** - [public/cv.pdf](public/cv.pdf)
-- Replace with your actual PDF resume
+### 5. Verify
+```bash
+curl http://localhost:3001
+curl http://localhost/portfolio/
+```
 
-### 3. Deploy to Azure (FREE)
+Visit: `https://gritgo.in/portfolio`
+
+## Common Commands
 
 ```bash
-# Create Azure Static Web App
-az staticwebapp create \
-  --name your-name-cv \
-  --resource-group your-resource-group \
-  --branch main
-
-# Get deployment token
-az staticwebapp secrets list \
-  --name your-name-cv \
-  --query "properties.apiKey"
-
-# Add the token to GitHub Secrets
-# Name: AZURE_STATIC_WEB_APPS_API_TOKEN
-# Then push to GitHub - auto-deployment starts!
-```
-
-## 🎨 Design Colors
-
-The site uses OutlineCV's color palette:
-
-```typescript
-colors: {
-  cream: '#f6f7f1',        // Background
-  darkGray: '#333333',     // Text
-  mediumGray: '#777777',   // Secondary text
-  accent: '#1020cc',       // Links and accents
-  caseColors: {
-    pink: '#ff6b9d',
-    purple: '#8b5cf6',
-    cyan: '#00d9ff',
-    red: '#ff3b30',
-    lime: '#32d74b',
-  }
-}
-```
-
-## 📝 Available Case Study Colors
-
-Use these for your projects in [data/cases.ts](data/cases.ts):
-- `darkGray` - Professional, serious projects
-- `pink` - Creative, design-focused work
-- `purple` - Tech, innovative projects
-- `cyan` - Fresh, modern work
-- `red` - Bold, important projects
-- `lime` - Growth, success stories
-
-## 🛠️ Docker Commands
-
-```bash
-# Start development
-docker-compose up
-
-# Rebuild after dependency changes
-docker-compose up --build
-
-# Run in background
-docker-compose up -d
-
 # View logs
-docker-compose logs -f
+docker logs -f prasana-portfolio
 
-# Stop everything
-docker-compose down
+# Restart container
+docker compose restart
 
-# Build production version
-docker-compose run web npm run build
+# Update after git pull
+git pull && docker compose up -d --build
+
+# Check service status
+sudo systemctl status prasana-portfolio
+
+# View nginx logs
+sudo tail -f /var/log/nginx/error.log
 ```
 
-## 🔍 Project Structure at a Glance
+## Troubleshooting
 
-```
-app/
-├── page.tsx           👈 Edit your homepage here
-├── layout.tsx         👈 Site-wide layout and navigation
-├── globals.css        👈 Global styles
-└── cases/
-    ├── page.tsx       👈 Cases archive page
-    └── [slug]/page.tsx  👈 Individual case template
-
-components/
-├── Navigation.tsx     👈 Header with social links
-├── CaseCard.tsx       👈 Case study card component
-└── CaseDetailClient.tsx  Case detail page wrapper
-
-data/
-└── cases.ts          👈 Add your projects here!
-
-public/
-└── cv.pdf            👈 Replace with your resume
+**502 Bad Gateway?**
+```bash
+docker ps | grep prasana-portfolio
+docker logs prasana-portfolio
 ```
 
-## ✅ Checklist
+**Container not running?**
+```bash
+docker compose up -d --build
+```
 
-Before deploying, make sure you've:
+**Port already in use?**
+```bash
+sudo lsof -i :3001
+# Change port in docker-compose.yml if needed
+```
 
-- [ ] Updated your name and title in [app/page.tsx](app/page.tsx)
-- [ ] Added your case studies in [data/cases.ts](data/cases.ts)
-- [ ] Updated social links in [components/Navigation.tsx](components/Navigation.tsx)
-- [ ] Replaced [public/cv.pdf](public/cv.pdf) with your resume
-- [ ] Tested locally with `docker-compose up`
-- [ ] Committed to GitHub
-- [ ] Set up Azure Static Web App
-- [ ] Added `AZURE_STATIC_WEB_APPS_API_TOKEN` to GitHub Secrets
+## Auto-Start Configured ✓
 
-## 🆘 Need Help?
+The application will automatically start on server reboot via systemd service.
 
-Check the main [README.md](readme.md) for detailed documentation!
+---
+
+**Full documentation**: See [DEPLOYMENT.md](./DEPLOYMENT.md)

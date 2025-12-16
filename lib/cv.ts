@@ -8,17 +8,30 @@ export interface CVFile {
   extension: string;   // File extension (.pdf or .docx)
 }
 
+// Cache configuration
+let cachedCVFiles: CVFile[] | null = null;
+let lastCVScan = 0;
+const CV_CACHE_DURATION = 15 * 60 * 1000; // 15 minutes in milliseconds
+
 /**
  * Get all CV files from the public/cv directory
- * This runs server-side only
+ * This runs server-side only with caching
  */
 export function getCVFiles(): CVFile[] {
+  // Check if cache is valid
+  const now = Date.now();
+  if (cachedCVFiles && (now - lastCVScan) < CV_CACHE_DURATION) {
+    return cachedCVFiles;
+  }
+
   try {
     const cvDir = path.join(process.cwd(), 'public', 'cv');
 
     // Check if directory exists
     if (!fs.existsSync(cvDir)) {
       console.warn('CV directory does not exist:', cvDir);
+      cachedCVFiles = [];
+      lastCVScan = now;
       return [];
     }
 
@@ -47,9 +60,15 @@ export function getCVFiles(): CVFile[] {
       })
       .sort((a, b) => a.name.localeCompare(b.name)); // Sort alphabetically
 
+    // Update cache
+    cachedCVFiles = cvFiles;
+    lastCVScan = now;
+
     return cvFiles;
   } catch (error) {
     console.error('Error reading CV files:', error);
+    cachedCVFiles = [];
+    lastCVScan = now;
     return [];
   }
 }
@@ -57,6 +76,7 @@ export function getCVFiles(): CVFile[] {
 /**
  * Get CV files for client-side components
  * Returns a simplified structure that can be serialized
+ * Uses cached data for performance
  */
 export function getCVFilesForClient(): Omit<CVFile, 'fileName'>[] {
   return getCVFiles().map(({ name, path, extension }) => ({
@@ -64,4 +84,13 @@ export function getCVFilesForClient(): Omit<CVFile, 'fileName'>[] {
     path,
     extension
   }));
+}
+
+/**
+ * Clear the CV files cache
+ * Useful for development or when files are updated
+ */
+export function clearCVCache(): void {
+  cachedCVFiles = null;
+  lastCVScan = 0;
 }

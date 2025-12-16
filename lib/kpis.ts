@@ -15,14 +15,40 @@ export interface ProjectKPIs {
   kpis: KPI[];
 }
 
+// Cache for KPI lookups to avoid repeated array searches
+const kpiCache = new Map<string, KPI[]>();
+const topKpiCache = new Map<string, KPI[]>();
+
 export function getKPIsForExperience(experienceId: string): KPI[] {
+  // Check cache first
+  if (kpiCache.has(experienceId)) {
+    return kpiCache.get(experienceId)!;
+  }
+
   const experience = kpisData.experiences.find((exp) => exp.id === experienceId);
-  return experience?.kpis || [];
+  const kpis = experience?.kpis || [];
+
+  // Cache the result
+  kpiCache.set(experienceId, kpis);
+
+  return kpis;
 }
 
 export function getTopKPIsForExperience(experienceId: string, count: number = 3): KPI[] {
+  const cacheKey = `${experienceId}-${count}`;
+
+  // Check cache first
+  if (topKpiCache.has(cacheKey)) {
+    return topKpiCache.get(cacheKey)!;
+  }
+
   const kpis = getKPIsForExperience(experienceId);
-  return kpis.slice(0, count);
+  const topKpis = kpis.slice(0, count);
+
+  // Cache the result
+  topKpiCache.set(cacheKey, topKpis);
+
+  return topKpis;
 }
 
 export function getKPIsForProject(projectId: string): KPI[] {

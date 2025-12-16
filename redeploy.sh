@@ -15,17 +15,17 @@ echo ""
 
 # Stop current container
 echo "🛑 Stopping current container..."
-docker compose down
+docker-compose down
 echo ""
 
 # Rebuild image
 echo "🔨 Building new Docker image..."
-docker compose build
+docker-compose build
 echo ""
 
 # Start container
 echo "🚀 Starting container..."
-docker compose up -d
+docker-compose up -d
 echo ""
 
 # Wait a moment for container to start

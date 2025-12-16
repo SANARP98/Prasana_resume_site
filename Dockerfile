@@ -43,14 +43,9 @@ server {
     add_header X-XSS-Protection "1; mode=block" always;
 
     # Cache static assets
-    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ {
+    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|docx|pdf)$ {
         expires 1y;
         add_header Cache-Control "public, immutable";
-    }
-
-    # Handle Next.js static export routing
-    location / {
-        try_files \$uri \$uri.html \$uri/ /index.html;
     }
 
     # Health check endpoint
@@ -58,6 +53,11 @@ server {
         access_log off;
         return 200 "healthy\n";
         add_header Content-Type text/plain;
+    }
+
+    # Handle Next.js static export routing with basePath
+    location / {
+        try_files \$uri \$uri.html \$uri/ /index.html;
     }
 }
 EOF

@@ -8,6 +8,19 @@ set -e
 echo "🔄 Redeploying Prasana Portfolio..."
 echo ""
 
+# Detect which docker compose command to use
+if docker compose version &> /dev/null 2>&1; then
+    COMPOSE_CMD="docker compose"
+elif command -v docker-compose &> /dev/null; then
+    COMPOSE_CMD="docker-compose"
+else
+    echo "❌ Neither 'docker compose' nor 'docker-compose' is available"
+    exit 1
+fi
+
+echo "📦 Using: $COMPOSE_CMD"
+echo ""
+
 # Pull latest changes
 echo "📥 Pulling latest changes from git..."
 git pull
@@ -15,17 +28,17 @@ echo ""
 
 # Stop current container
 echo "🛑 Stopping current container..."
-docker-compose down
+$COMPOSE_CMD down
 echo ""
 
 # Rebuild image
 echo "🔨 Building new Docker image..."
-docker-compose build
+$COMPOSE_CMD build
 echo ""
 
 # Start container
 echo "🚀 Starting container..."
-docker-compose up -d
+$COMPOSE_CMD up -d
 echo ""
 
 # Wait a moment for container to start

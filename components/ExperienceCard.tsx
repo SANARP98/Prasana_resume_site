@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Experience } from "@/data/cases";
+import { getKPIIdFromSlug, getTopKPIsForExperience } from "@/lib/kpis";
+import { KPIBadge } from "./KPIDisplay";
 
 export default function ExperienceCard({
   experience,
@@ -11,6 +13,9 @@ export default function ExperienceCard({
   experience: Experience;
   index?: number;
 }) {
+  const kpiId = getKPIIdFromSlug(experience.slug);
+  const topKPIs = getTopKPIsForExperience(kpiId, 3);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -31,9 +36,18 @@ export default function ExperienceCard({
               {experience.company}
             </h3>
             <p className="text-xs text-mediumGray mb-1">{experience.role}</p>
-            <div className="flex gap-2 text-xs text-mediumGray">
+            <div className="flex gap-2 text-xs text-mediumGray mb-2">
               <span>{experience.date}</span>
             </div>
+
+            {/* KPI Badges - Only show if KPIs exist */}
+            {topKPIs.length > 0 && (
+              <div className="flex flex-wrap gap-2 mt-2">
+                {topKPIs.map((kpi, idx) => (
+                  <KPIBadge key={idx} kpi={kpi} delay={index * 0.05 + idx * 0.05} />
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </Link>

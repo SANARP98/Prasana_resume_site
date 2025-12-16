@@ -6,10 +6,17 @@
   body {
     @apply bg-cream text-darkGray antialiased;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    letter-spacing: 0.3px;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-bold tracking-tighter;
+    line-height: 1.2;
+  }
+
+  p {
+    line-height: 1.7;
   }
 
   a {

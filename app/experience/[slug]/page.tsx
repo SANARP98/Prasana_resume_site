@@ -8,12 +8,13 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function ExperienceDetailPage({
+export default async function ExperienceDetailPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const experience = allExperiences.find((exp) => exp.slug === params.slug);
+  const { slug } = await params;
+  const experience = allExperiences.find((exp) => exp.slug === slug);
 
   if (!experience) {
     notFound();

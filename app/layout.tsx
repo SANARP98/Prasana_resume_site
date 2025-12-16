@@ -29,14 +29,14 @@ export default function RootLayout({
         <main className="min-h-screen">
           {children}
         </main>
-        <footer className="container-custom py-10 text-sm text-mediumGray border-t border-darkGray/10">
-          <div className="flex justify-between items-center">
-            <div className="flex gap-4">
-              <a href="/skills" className="hover:text-accent uppercase">All Skills</a>
+        <footer className="container-custom py-12 text-xs text-mediumGray border-t border-darkGray/10">
+          <div className="flex justify-between items-center tracking-widest">
+            <div className="flex gap-6">
+              <a href="/skills" className="hover:text-accent uppercase transition-colors">All Skills</a>
             </div>
-            <div className="flex gap-4">
-              <a href="/experience" className="hover:text-accent uppercase">All Experience</a>
-              <a href="/cases" className="hover:text-accent uppercase">All Cases</a>
+            <div className="flex gap-6">
+              <a href="/experience" className="hover:text-accent uppercase transition-colors">All Experience</a>
+              <a href="/cases" className="hover:text-accent uppercase transition-colors">All Cases</a>
             </div>
           </div>
         </footer>

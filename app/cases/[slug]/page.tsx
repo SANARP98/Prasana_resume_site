@@ -9,12 +9,13 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function CaseDetailPage({
+export default async function CaseDetailPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const caseItem = allCases.find((c) => c.slug === params.slug);
+  const { slug } = await params;
+  const caseItem = allCases.find((c) => c.slug === slug);
 
   if (!caseItem) {
     notFound();

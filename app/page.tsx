@@ -8,22 +8,22 @@ import { featuredCases, allExperiences } from "@/data/cases";
 
 export default function Home() {
   return (
-    <div className="container-custom py-16">
+    <div className="container-custom py-20">
       {/* Two Column Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
         {/* LEFT COLUMN - Profile, Bio, Study, Info */}
-        <div className="space-y-16">
+        <div className="space-y-20">
           {/* Profile Introduction */}
           <motion.section
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="flex items-start gap-6 mb-8">
+            <div className="flex items-start gap-6 mb-10">
               <div className="w-16 h-16 rounded-full bg-gradient-to-br from-accent to-cyan-400 flex-shrink-0" />
               <div>
-                <h1 className="text-4xl font-black mb-1">Prasana Renganathan</h1>
-                <p className="text-lg uppercase text-mediumGray mb-4">DevSecOps & Cloud Security Engineer</p>
+                <h1 className="text-4xl font-black mb-2">Prasana Renganathan</h1>
+                <p className="text-base uppercase text-mediumGray tracking-wider mb-6 font-semibold">DevSecOps & Cloud Security Engineer</p>
               </div>
             </div>
             <p className="text-base leading-relaxed">
@@ -33,7 +33,7 @@ export default function Home() {
               </Link>{" "}
               on Azure and Kubernetes. DevSecOps specialist with 5+ years architecting secure CI/CD pipelines,
               implementing{" "}
-              <span className="text-accent">AI-driven security automation</span>, and designing{" "}
+              <span className="text-accent font-semibold">AI-driven security automation</span>, and designing{" "}
               <Link href="/cases/gritgo-trading-bot" className="hover:underline">
                 quant-style algorithmic trading systems
               </Link>
@@ -87,7 +87,7 @@ export default function Home() {
         </div>
 
         {/* RIGHT COLUMN - Experience and Cases */}
-        <div className="space-y-12">
+        <div className="space-y-16">
           {/* Experience Section */}
           <Section title="Experience" delay={0.4}>
             <div className="space-y-6">
@@ -133,9 +133,9 @@ function Section({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay }}
-      className="mb-20"
+      className="mb-24"
     >
-      <h2 className="text-sm uppercase tracking-wider text-mediumGray mb-6 font-bold">
+      <h2 className="text-xs uppercase tracking-widest text-mediumGray mb-8 font-bold letter-spacing">
         {title}
       </h2>
       <div className="max-w-3xl">

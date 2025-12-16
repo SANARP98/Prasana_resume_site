@@ -35,6 +35,13 @@ const config: Config = {
       letterSpacing: {
         'tighter': '-0.04em',
       },
+      lineHeight: {
+        'tight': '1.2',
+        'snug': '1.375',
+        'normal': '1.6',
+        'relaxed': '1.7',
+        'loose': '1.875',
+      },
     },
   },
   plugins: [],

@@ -1,0 +1,269 @@
+{
+  "experiences": [
+    {
+      "id": "qualitest-cyber-security-specialist",
+      "company": "Qualitest Group",
+      "role": "Cyber Security Specialist",
+      "period": "February 2021 - Present",
+      "kpis": [
+        {
+          "label": "Applications in Security Pipeline",
+          "value": "40+",
+          "description": "Managed security pipeline across Azure DevOps, Jenkins, GitHub Actions, GitLab CI/CD, and Bamboo"
+        },
+        {
+          "label": "Security Findings Identified",
+          "value": "240+",
+          "description": "Total security findings identified and remediated"
+        },
+        {
+          "label": "Critical Vulnerabilities",
+          "value": "20+",
+          "description": "Critical vulnerabilities across enterprise applications"
+        },
+        {
+          "label": "MTTR Reduction",
+          "value": "60%",
+          "description": "Reduced mean time to remediation through automated security gates"
+        },
+        {
+          "label": "Scan Coverage",
+          "value": "95%+",
+          "description": "Coverage across SAST, DAST, SCA, and container security scans"
+        },
+        {
+          "label": "IaC Templates Automated",
+          "value": "100+",
+          "description": "Terraform/Bicep templates with automated security remediation"
+        },
+        {
+          "label": "False Positive Reduction",
+          "value": "40%",
+          "description": "Through tuned detection thresholds in AI-assisted secrets detection"
+        },
+        {
+          "label": "Cloud Security Audits",
+          "value": "15+",
+          "description": "Azure infrastructure audit reports for Europe and US clients"
+        },
+        {
+          "label": "Team Members Upskilled",
+          "value": "50+",
+          "description": "Through DevSecOps workshops and hands-on training"
+        },
+        {
+          "label": "Security Product Uptime",
+          "value": "99.5%",
+          "description": "For in-house security product on Kubernetes"
+        },
+        {
+          "label": "Code Lines Processed",
+          "value": "10M+",
+          "description": "Through AI-assisted secrets detection pipeline"
+        }
+      ]
+    },
+    {
+      "id": "adaptive-platform-engineer",
+      "company": "Adaptive Biotechnologies",
+      "role": "Platform Engineer",
+      "period": "July 2023 - Present",
+      "kpis": [
+        {
+          "label": "Applications Migrated to AKS",
+          "value": "3+",
+          "description": "Zero-downtime migration to Azure Kubernetes Service"
+        },
+        {
+          "label": "Infrastructure Downtime Reduction",
+          "value": "70%",
+          "description": "For LIMS infrastructure through automation"
+        },
+        {
+          "label": "Applications with Automated Rotation",
+          "value": "30+",
+          "description": "Token/secret rotation for TX-RAMP and SOX compliance"
+        },
+        {
+          "label": "SOX Reviews Completed",
+          "value": "100%",
+          "description": "User access reviews on schedule with full audit trail"
+        },
+        {
+          "label": "Manual Maintenance Reduction",
+          "value": "80%",
+          "description": "Through centralized control application"
+        },
+        {
+          "label": "PostgreSQL Performance Improvement",
+          "value": "40%+",
+          "description": "Across 5+ database instances using pgBadger"
+        },
+        {
+          "label": "CrowdStrike Sensors Deployed",
+          "value": "200+",
+          "description": "With 98%+ health status across infrastructure"
+        },
+        {
+          "label": "SSO Integrations",
+          "value": "20+",
+          "description": "Applications integrated with Okta (SAML/OIDC)"
+        },
+        {
+          "label": "Linux VMs Managed",
+          "value": "50+",
+          "description": "With LDAP integration and certificate management"
+        },
+        {
+          "label": "Terraform Modules",
+          "value": "100+",
+          "description": "For repeatable infrastructure provisioning"
+        },
+        {
+          "label": "Deployment Time Reduction",
+          "value": "65%",
+          "description": "Through GitLab CI/CD and Helm automation"
+        }
+      ]
+    },
+    {
+      "id": "bcu-cyber-security-engineer",
+      "company": "Baxtor Credit Union (BCU)",
+      "role": "Cyber Security Engineer",
+      "period": "April 2022 - January 2023",
+      "kpis": [
+        {
+          "label": "Applications Tested",
+          "value": "15+",
+          "description": "Web, mobile, and API applications in finance domain"
+        },
+        {
+          "label": "Vulnerabilities Identified",
+          "value": "180+",
+          "description": "Security vulnerabilities tracked to remediation"
+        },
+        {
+          "label": "High-Risk Findings",
+          "value": "25+",
+          "description": "Critical and high-severity findings"
+        },
+        {
+          "label": "Vulnerability Backlog Reduction",
+          "value": "70%",
+          "description": "Through prioritized remediation guidance"
+        },
+        {
+          "label": "Remediation Rate",
+          "value": "90%+",
+          "description": "Within SLAs for critical/high findings"
+        },
+        {
+          "label": "Azure Cloud Security Audits",
+          "value": "8+",
+          "description": "Against CIS Benchmarks with remediation roadmaps"
+        },
+        {
+          "label": "Critical Fixes Retested",
+          "value": "100%",
+          "description": "Before production release"
+        },
+        {
+          "label": "False Positive Reduction",
+          "value": "50%",
+          "description": "Through SAST/SCA tuning and de-duplication"
+        },
+        {
+          "label": "Penetration Testing Reports",
+          "value": "10+",
+          "description": "With PoC exploits and impact analysis"
+        }
+      ]
+    },
+    {
+      "id": "ncp-cyber-security-engineer",
+      "company": "National Car Parks (NCP)",
+      "role": "Cyber Security Engineer",
+      "period": "November 2021 - April 2022",
+      "kpis": [
+        {
+          "label": "Applications Tested",
+          "value": "10+",
+          "description": "End-to-end security testing"
+        },
+        {
+          "label": "Security Findings",
+          "value": "120+",
+          "description": "With remediation guidance and retest confirmation"
+        },
+        {
+          "label": "Pipeline Integrations",
+          "value": "5+",
+          "description": "Security tools in Azure DevOps pipelines"
+        },
+        {
+          "label": "POC Security Stages",
+          "value": "3",
+          "description": "In Jenkins with automated security gating"
+        },
+        {
+          "label": "Retest Cycle Reduction",
+          "value": "50%",
+          "description": "Through clear documentation and collaboration"
+        },
+        {
+          "label": "Fix Verification Rate",
+          "value": "85%+",
+          "description": "Within project timelines"
+        },
+        {
+          "label": "Security Testing Templates",
+          "value": "5+",
+          "description": "For repeatability and knowledge transfer"
+        }
+      ]
+    }
+  ],
+  "projects": {
+    "gritgo": {
+      "id": "gritgo-trading-bot",
+      "name": "Gritgo – Quant-Style Algorithmic Trading Bot",
+      "kpis": [
+        {
+          "label": "Strategies Backtested",
+          "value": "500+",
+          "description": "Trading strategies across derivative symbols"
+        },
+        {
+          "label": "Derivative Symbols",
+          "value": "10+",
+          "description": "Symbols analyzed and traded"
+        },
+        {
+          "label": "Tick Data Points Collected",
+          "value": "50M+",
+          "description": "For time-series analytics"
+        },
+        {
+          "label": "Trade Execution Latency",
+          "value": "<500ms",
+          "description": "From signal to order placement"
+        },
+        {
+          "label": "Microservices Deployed",
+          "value": "8+",
+          "description": "Across AWS, Azure, and GCP"
+        },
+        {
+          "label": "TradingView Alerts Processed",
+          "value": "1000+",
+          "description": "Real-time alerts with multi-signal validation"
+        }
+      ]
+    }
+  },
+  "metadata": {
+    "last_updated": "2025-12-16",
+    "version": "1.0",
+    "notes": "Edit the 'value' field for each KPI to update. Changes will reflect automatically on the website when this file is read."
+  }
+}

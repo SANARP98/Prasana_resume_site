@@ -26,9 +26,11 @@ export default function RootLayout({
         <main className="min-h-screen">
           {children}
         </main>
-        <footer className="container-custom py-10 text-center text-sm text-mediumGray border-t border-darkGray/10">
+        <footer className="container-custom py-10 text-sm text-mediumGray border-t border-darkGray/10">
           <div className="flex justify-between items-center">
-            <p>&copy; {new Date().getFullYear()} Prasana Renganathan. All rights reserved.</p>
+            <div className="flex gap-4">
+              <a href="/skills" className="hover:text-accent uppercase">All Skills</a>
+            </div>
             <div className="flex gap-4">
               <a href="/experience" className="hover:text-accent uppercase">All Experience</a>
               <a href="/cases" className="hover:text-accent uppercase">All Cases</a>

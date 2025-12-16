@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import CaseCard from "@/components/CaseCard";
 import ExperienceCard from "@/components/ExperienceCard";
 import { featuredCases, allExperiences } from "@/data/cases";
@@ -20,7 +21,16 @@ export default function Home() {
             transition={{ duration: 0.6 }}
           >
             <div className="flex items-start gap-6 mb-10">
-              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-accent to-cyan-400 flex-shrink-0" />
+              <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-accent/20">
+                <Image
+                  src="/profile.jpg"
+                  alt="Prasana Renganathan"
+                  width={64}
+                  height={64}
+                  className="object-cover w-full h-full"
+                  priority
+                />
+              </div>
               <div>
                 <h1 className="text-4xl font-black mb-2">Prasana Renganathan</h1>
                 <p className="text-base uppercase text-mediumGray tracking-wider mb-6 font-semibold">DevSecOps & Cloud Security Engineer</p>

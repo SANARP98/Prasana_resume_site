@@ -53,7 +53,7 @@
         },
         {
           "label": "Security Product Uptime",
-          "value": "99.5%",
+          "value": "99%",
           "description": "For in-house security product on Kubernetes"
         },
         {

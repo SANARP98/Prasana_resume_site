@@ -71,7 +71,7 @@
       "kpis": [
         {
           "label": "Applications Migrated to AKS",
-          "value": "3+",
+          "value": "13+",
           "description": "Zero-downtime migration to Azure Kubernetes Service"
         },
         {
@@ -86,7 +86,7 @@
         },
         {
           "label": "SOX Reviews Completed",
-          "value": "100%",
+          "value": "100+",
           "description": "User access reviews on schedule with full audit trail"
         },
         {

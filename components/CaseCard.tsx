@@ -22,9 +22,18 @@ export default function CaseCard({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.05 }}
+      transition={{
+        type: "spring",
+        stiffness: 100,
+        damping: 20,
+        delay: index * 0.08
+      }}
+      whileHover={{
+        y: -2,
+        transition: { duration: 0.2, ease: [0.4, 0, 0.2, 1] }
+      }}
       className="group"
     >
       <Link href={`/cases/${caseItem.slug}`} className="block">

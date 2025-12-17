@@ -5,6 +5,7 @@ import Link from "next/link";
 import CaseCard from "@/components/CaseCard";
 import ExperienceCard from "@/components/ExperienceCard";
 import { featuredCases, allExperiences } from "@/data/cases";
+import { ultraSmoothTransition, staggerContainer } from "@/lib/animations";
 
 export default function Home() {
   return (
@@ -15,9 +16,9 @@ export default function Home() {
         <div className="space-y-20">
           {/* Profile Introduction */}
           <motion.section
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={ultraSmoothTransition}
           >
             <div className="flex items-start gap-6 mb-10">
               <div className="w-16 h-16 rounded-full bg-gradient-to-br from-accent to-cyan-400 flex-shrink-0" />
@@ -130,17 +131,38 @@ function Section({
 }) {
   return (
     <motion.section
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay }}
+      transition={{
+        type: "spring",
+        stiffness: 50,
+        damping: 15,
+        mass: 0.8,
+        delay
+      }}
       className="mb-24"
     >
-      <h2 className="text-xs uppercase tracking-widest text-mediumGray mb-8 font-bold letter-spacing">
+      <motion.h2
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{
+          type: "spring",
+          stiffness: 60,
+          damping: 15,
+          delay: delay + 0.1
+        }}
+        className="text-xs uppercase tracking-widest text-mediumGray mb-8 font-bold letter-spacing"
+      >
         {title}
-      </h2>
-      <div className="max-w-3xl">
+      </motion.h2>
+      <motion.div
+        className="max-w-3xl"
+        variants={staggerContainer}
+        initial="initial"
+        animate="animate"
+      >
         {children}
-      </div>
+      </motion.div>
     </motion.section>
   );
 }

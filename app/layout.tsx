@@ -33,11 +33,11 @@ export default function RootLayout({
         <footer className="container-custom py-12 text-xs text-mediumGray border-t border-darkGray/10">
           <div className="flex justify-between items-center tracking-widest">
             <div className="flex gap-6">
-              <Link href="/skills" className="hover:text-accent uppercase transition-colors">All Skills</Link>
+              <a href="/skills/" className="hover:text-accent uppercase transition-colors">All Skills</a>
             </div>
             <div className="flex gap-6">
-              <Link href="/experience" className="hover:text-accent uppercase transition-colors">All Experience</Link>
-              <Link href="/cases" className="hover:text-accent uppercase transition-colors">All Cases</Link>
+              <a href="/experience/" className="hover:text-accent uppercase transition-colors">All Experience</a>
+              <a href="/cases/" className="hover:text-accent uppercase transition-colors">All Cases</a>
             </div>
           </div>
         </footer>

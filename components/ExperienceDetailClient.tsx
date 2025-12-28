@@ -27,12 +27,12 @@ export default function ExperienceDetailClient({
         transition={{ duration: 0.3 }}
         className="mb-8"
       >
-        <Link
-          href="/"
+        <a
+          href="/experience/"
           className="text-sm uppercase text-mediumGray hover:text-accent transition-colors"
         >
-          ← Home
-        </Link>
+          ← All Experience
+        </a>
       </motion.div>
 
       {/* Header */}

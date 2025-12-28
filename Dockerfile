@@ -1,38 +1,77 @@
-# Production Dockerfile - Multi-stage build optimized for size
-FROM node:20-alpine AS deps
-WORKDIR /app
-COPY package*.json ./
-# Only install production dependencies
-RUN npm ci --production --ignore-scripts && \
-    npm cache clean --force
+# Production Dockerfile - Optimized for Azure Container Apps
+# Target: AMD64 architecture, minimal size, maximum performance
 
-FROM node:20-alpine AS builder
+# Build stage - Use AMD64 architecture explicitly
+FROM --platform=linux/amd64 node:20-alpine AS builder
+
 WORKDIR /app
+
+# Copy package files
 COPY package*.json ./
-# Install all dependencies for build
+
+# Install ALL dependencies (needed for build)
 RUN npm ci --ignore-scripts
+
+# Copy source files
 COPY . .
+
 # Build the static export
 RUN npm run build && \
+    # Clean up after build
+    rm -rf .next/cache && \
     npm cache clean --force
 
-# Use nginx-alpine for smallest possible image (~40MB vs ~180MB with node)
-FROM nginx:alpine AS runner
+# Production stage - Ultra-minimal nginx
+FROM --platform=linux/amd64 nginx:alpine AS runner
 
-# Remove default nginx config and static files
+# Add labels for Azure Container Apps
+LABEL maintainer="Prasana Resume Site"
+LABEL description="Production-ready resume site with nginx"
+LABEL version="1.0.0"
+
+# Remove default nginx files to reduce size
 RUN rm -rf /usr/share/nginx/html/* && \
-    rm /etc/nginx/conf.d/default.conf
+    rm -rf /etc/nginx/conf.d/* && \
+    # Remove unnecessary nginx modules/files
+    rm -rf /usr/share/nginx/modules && \
+    # Clean up package manager cache
+    rm -rf /var/cache/apk/*
 
-# Copy custom nginx configuration
+# Copy optimized nginx configuration
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Copy built static files from builder
+# Copy built static files from builder (all-inclusive, no volumes)
 COPY --from=builder /app/out /usr/share/nginx/html
 
-# Optimize: Remove unnecessary files
-RUN find /usr/share/nginx/html -name "*.map" -delete
+# Aggressive cleanup to minimize image size
+RUN find /usr/share/nginx/html -type f \( \
+    -name "*.map" -o \
+    -name "*.md" -o \
+    -name "*.txt" -o \
+    -name "*.LICENSE" -o \
+    -name ".gitignore" -o \
+    -name ".DS_Store" \
+    \) -delete && \
+    # Remove empty directories
+    find /usr/share/nginx/html -type d -empty -delete && \
+    # Set proper permissions for nginx user
+    chown -R nginx:nginx /usr/share/nginx/html && \
+    chmod -R 755 /usr/share/nginx/html && \
+    # Create and configure nginx directories for non-root
+    touch /var/run/nginx.pid && \
+    chown -R nginx:nginx /var/run/nginx.pid && \
+    chown -R nginx:nginx /var/cache/nginx && \
+    chown -R nginx:nginx /etc/nginx/conf.d
 
+# Run as non-root user (Azure Container Apps best practice)
+USER nginx
+
+# Expose port (Azure Container Apps will map this)
 EXPOSE 3000
 
-# Run nginx in foreground
+# Health check for Azure Container Apps
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD wget --quiet --tries=1 --spider http://localhost:3000/health || exit 1
+
+# Start nginx in foreground
 CMD ["nginx", "-g", "daemon off;"]

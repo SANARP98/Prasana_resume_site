@@ -1,21 +1,75 @@
+# Dependencies
 node_modules
-.next
-out
-.git
-.gitignore
-README.md
-README.md.backup
-.DS_Store
-.claude
-*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.env*.local
+pnpm-debug.log*
+
+# Build outputs
+.next
+out
+dist
+build
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Documentation
+README.md
+README.md.backup
+*.md
+PERFORMANCE_OPTIMIZATIONS.md
+LICENSE
+
+# IDE
 .vscode
 .idea
-*.pem
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env*.local
+.env.development
+.env.test
+.env.production
+
+# Logs
 logs
+*.log
+
+# Testing
+coverage
+.nyc_output
+.jest
+__tests__
+*.test.js
+*.test.ts
+*.spec.js
+*.spec.ts
+
+# Development files
 Dockerfile.dev
 docker-compose.dev.yml
-PERFORMANCE_OPTIMIZATIONS.md
+.prettierrc
+.eslintrc
+.editorconfig
+
+# CI/CD
+.github
+.gitlab-ci.yml
+.circleci
+
+# Misc
+*.pem
+.claude
+.husky
+.npmrc
+.yarnrc

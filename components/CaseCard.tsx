@@ -36,7 +36,7 @@ export default function CaseCard({
       }}
       className="group"
     >
-      <Link href={`/cases/${caseItem.slug}`} className="block">
+      <a href={`/cases/${caseItem.slug}/`} className="block">
         <div className="flex gap-3 items-start">
           {/* Icon */}
           <div className={`w-8 h-8 rounded-full ${colorMap[caseItem.color] || 'bg-darkGray'} flex items-center justify-center flex-shrink-0 mt-1`}>
@@ -57,7 +57,7 @@ export default function CaseCard({
             </div>
           </div>
         </div>
-      </Link>
+      </a>
     </motion.div>
   );
 }

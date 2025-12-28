@@ -35,9 +35,9 @@ export default function Home() {
               on Azure and Kubernetes. DevSecOps specialist with 5+ years architecting secure CI/CD pipelines,
               implementing{" "}
               <span className="text-accent font-semibold">AI-driven security automation</span>, and designing{" "}
-              <Link href="/cases/gritgo-trading-bot" className="hover:underline">
+              <a href="/cases/gritgo-trading-bot/" className="hover:underline">
                 quant-style algorithmic trading systems
-              </Link>
+              </a>
               . Working globally with enterprise clients across Europe and the US.
             </p>
           </motion.section>
@@ -76,12 +76,12 @@ export default function Home() {
               </div>
 
               <div className="mt-6">
-                <Link
-                  href="/skills"
+                <a
+                  href="/skills/"
                   className="inline-block text-sm text-accent hover:underline"
                 >
                   View all skills →
-                </Link>
+                </a>
               </div>
             </div>
           </Section>

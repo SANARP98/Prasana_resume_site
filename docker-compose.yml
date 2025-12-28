@@ -3,20 +3,38 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      platforms:
+        - linux/amd64
+      args:
+        - BUILDKIT_INLINE_CACHE=1
+    image: prasana-resume-site:latest
     container_name: prasana-portfolio
     restart: unless-stopped
     ports:
       - "3001:3000"
     environment:
       - NODE_ENV=production
+    # No volumes - completely self-contained
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/health"]
       interval: 30s
       timeout: 3s
       retries: 3
       start_period: 5s
+    # Resource limits for production
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 128M
+        reservations:
+          cpus: '0.1'
+          memory: 32M
     networks:
       - portfolio-network
+    # Security options
+    security_opt:
+      - no-new-privileges:true
 
 networks:
   portfolio-network:

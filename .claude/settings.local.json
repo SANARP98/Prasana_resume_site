@@ -7,7 +7,11 @@
       "Bash(docker-compose up:*)",
       "Bash(docker logs:*)",
       "Bash(curl:*)",
-      "Bash(chmod:*)"
+      "Bash(chmod:*)",
+      "Bash(DOCKER_BUILDKIT=1 docker build:*)",
+      "Bash(docker rm:*)",
+      "Bash(docker run:*)",
+      "Bash(docker tag:*)"
     ]
   }
 }

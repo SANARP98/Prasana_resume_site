@@ -21,12 +21,12 @@ export default function CaseDetailClient({
         transition={{ duration: 0.3 }}
         className="mb-8"
       >
-        <Link
-          href="/cases"
+        <a
+          href="/cases/"
           className="text-sm uppercase text-mediumGray hover:text-accent transition-colors"
         >
           ← All Cases
-        </Link>
+        </a>
       </motion.div>
 
       {/* Header */}

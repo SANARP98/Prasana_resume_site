@@ -57,7 +57,7 @@ export default function Navigation({ cvFiles = [] }: { cvFiles?: CVFile[] }) {
             <CVDropdown cvFiles={cvFiles} />
 
             <a
-              href="mailto:prasana@gritgo.in"
+              href="mailto:sanarp1998@gmail.com"
               className="px-4 py-2 bg-accent text-cream rounded-md hover:bg-accent/90 transition-all duration-200 text-xs font-semibold shadow-sm hover:shadow-md"
             >
               Get in Touch
@@ -92,7 +92,7 @@ export default function Navigation({ cvFiles = [] }: { cvFiles?: CVFile[] }) {
             <CVDropdown cvFiles={cvFiles} />
 
             <a
-              href="mailto:prasana@gritgo.in"
+              href="mailto:sanarp1998@gmail.com"
               className="px-4 py-2 bg-accent text-cream rounded-md hover:bg-accent/90 transition-all duration-200 text-xs font-semibold shadow-sm hover:shadow-md whitespace-nowrap"
             >
               Get in Touch

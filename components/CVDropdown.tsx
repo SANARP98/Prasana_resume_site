@@ -62,7 +62,10 @@ export default function CVDropdown({ cvFiles }: { cvFiles: CVFile[] }) {
                 href={cv.path}
                 download
                 className="block px-4 py-2 text-sm text-darkGray hover:bg-accent/10 hover:text-accent transition-colors flex items-center justify-between group"
-                onClick={() => setIsOpen(false)}
+                onClick={() => {
+                  try { navigator.sendBeacon('/api/track/download', JSON.stringify({ file_name: cv.name, file_path: cv.path })); } catch(e) {}
+                  setIsOpen(false);
+                }}
               >
                 <span className="flex-1 truncate">{cv.name}</span>
                 <span className="text-xs text-mediumGray ml-2 uppercase group-hover:text-accent">

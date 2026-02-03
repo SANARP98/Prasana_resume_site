@@ -14,13 +14,16 @@ services:
       - "3001:3000"
     environment:
       - NODE_ENV=production
-    # No volumes - completely self-contained
+      - MONGO_URI=mongodb+srv://gtacjs_db_user:JiUNqhX04k152sEj@webhook-onesource.7zwchzr.mongodb.net/?appName=webhook-onesource
+      - MONGO_DB_NAME=portfolio_analytics
+      - ADMIN_PASSWORD_HASH=$2a$10$6VuxDWOTDCU7jI00/gEEI.iu61PqiO1inNduOFhaM/jwHI8aCo6mu
+      - ADMIN_SECRET=prasana-portfolio-admin-secret-2024
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/health"]
       interval: 30s
       timeout: 3s
       retries: 3
-      start_period: 5s
+      start_period: 10s
     # Resource limits for production
     deploy:
       resources:

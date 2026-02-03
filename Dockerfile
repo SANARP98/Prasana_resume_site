@@ -1,8 +1,8 @@
 # Production Dockerfile - Optimized for Azure Container Apps
 # Target: AMD64 architecture, minimal size, maximum performance
 
-# Build stage - Use AMD64 architecture explicitly
-FROM --platform=linux/amd64 node:20-alpine AS builder
+# Stage 1: Build frontend static export
+FROM --platform=linux/amd64 node:20-alpine AS frontend-builder
 
 WORKDIR /app
 
@@ -17,33 +17,46 @@ COPY . .
 
 # Build the static export
 RUN npm run build && \
-    # Clean up after build
     rm -rf .next/cache && \
     npm cache clean --force
 
-# Production stage - Ultra-minimal nginx
-FROM --platform=linux/amd64 nginx:alpine AS runner
+# Stage 2: Build backend
+FROM --platform=linux/amd64 node:20-alpine AS backend-builder
+
+WORKDIR /backend
+
+COPY backend/package*.json ./
+RUN npm install
+
+COPY backend/tsconfig.json ./
+COPY backend/*.ts ./
+COPY backend/routes/ ./routes/
+
+RUN npx tsc --outDir dist && \
+    rm -rf node_modules && \
+    npm install --production
+
+# Stage 3: Production runtime (Node + Nginx)
+FROM --platform=linux/amd64 node:20-alpine AS runner
 
 # Add labels for Azure Container Apps
 LABEL maintainer="Prasana Resume Site"
-LABEL description="Production-ready resume site with nginx"
-LABEL version="1.0.0"
+LABEL description="Production-ready resume site with nginx and analytics"
+LABEL version="2.0.0"
 
-# Remove default nginx files to reduce size
-RUN rm -rf /usr/share/nginx/html/* && \
+# Install nginx
+RUN apk add --no-cache nginx && \
+    rm -rf /usr/share/nginx/html/* && \
     rm -rf /etc/nginx/conf.d/* && \
-    # Remove unnecessary nginx modules/files
-    rm -rf /usr/share/nginx/modules && \
-    # Clean up package manager cache
     rm -rf /var/cache/apk/*
 
-# Copy optimized nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Copy nginx configuration (replaces default Alpine nginx.conf)
+COPY nginx.conf /etc/nginx/nginx.conf
 
-# Copy built static files from builder (all-inclusive, no volumes)
-COPY --from=builder /app/out /usr/share/nginx/html
+# Copy frontend static files
+COPY --from=frontend-builder /app/out /usr/share/nginx/html
 
-# Aggressive cleanup to minimize image size
+# Cleanup static files
 RUN find /usr/share/nginx/html -type f \( \
     -name "*.map" -o \
     -name "*.md" -o \
@@ -52,26 +65,37 @@ RUN find /usr/share/nginx/html -type f \( \
     -name ".gitignore" -o \
     -name ".DS_Store" \
     \) -delete && \
-    # Remove empty directories
     find /usr/share/nginx/html -type d -empty -delete && \
-    # Set proper permissions for nginx user
-    chown -R nginx:nginx /usr/share/nginx/html && \
-    chmod -R 755 /usr/share/nginx/html && \
-    # Create and configure nginx directories for non-root
-    touch /var/run/nginx.pid && \
-    chown -R nginx:nginx /var/run/nginx.pid && \
-    chown -R nginx:nginx /var/cache/nginx && \
-    chown -R nginx:nginx /etc/nginx/conf.d
+    chown -R node:node /usr/share/nginx/html && \
+    chmod -R 755 /usr/share/nginx/html
 
-# Run as non-root user (Azure Container Apps best practice)
-USER nginx
+# Configure nginx to run as non-root
+RUN mkdir -p /var/cache/nginx /var/log/nginx /var/lib/nginx/logs /run/nginx && \
+    touch /run/nginx/nginx.pid && \
+    chown -R node:node /run/nginx && \
+    chown -R node:node /var/cache/nginx && \
+    chown -R node:node /var/log/nginx && \
+    chown -R node:node /var/lib/nginx && \
+    chown -R node:node /etc/nginx
+
+# Copy backend
+COPY --from=backend-builder /backend/dist /backend/dist
+COPY --from=backend-builder /backend/node_modules /backend/node_modules
+COPY --from=backend-builder /backend/package.json /backend/
+
+# Copy start script
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+
+# Run as non-root user
+USER node
 
 # Expose port (Azure Container Apps will map this)
 EXPOSE 3000
 
 # Health check for Azure Container Apps
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
     CMD wget --quiet --tries=1 --spider http://localhost:3000/health || exit 1
 
-# Start nginx in foreground
-CMD ["nginx", "-g", "daemon off;"]
+# Start both nginx and backend
+CMD ["/start.sh"]

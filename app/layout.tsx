@@ -40,7 +40,11 @@ export default function RootLayout({
               <a href="/cases/" className="hover:text-accent uppercase transition-colors">All Cases</a>
             </div>
           </div>
+          <div className="flex justify-center mt-6">
+            <a href="/admin/" className="text-mediumGray/30 hover:text-mediumGray/60 text-[10px] leading-none transition-colors">&#8226;</a>
+          </div>
         </footer>
+        <script src="/js/track.js" defer></script>
       </body>
     </html>
   );

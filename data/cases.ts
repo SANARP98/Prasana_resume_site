@@ -1,4 +1,8 @@
-export interface CaseStudy {
+import type { Track } from "./profile";
+export { allExperiences } from "./experience";
+export type { Experience } from "./experience";
+
+export interface BaseCase {
   slug: string;
   title: string;
   date: string;
@@ -11,100 +15,7 @@ export interface CaseStudy {
   results?: string[];
 }
 
-export interface Experience {
-  slug: string;
-  company: string;
-  role: string;
-  period: string;
-  date: string;
-  responsibilities: string[];
-  summary: string;
-}
-
-export const allExperiences: Experience[] = [
-  {
-    slug: "qualitest-group",
-    company: "Qualitest Group",
-    role: "Cyber Security Specialist",
-    period: "February 2021 - Present",
-    date: "02/21 - Present",
-    summary: "Leading DevSecOps workflows and AI-driven security automation across enterprise CI/CD platforms. Architecting secure pipelines, implementing automated security testing, and building full-stack security products for global enterprise clients.",
-    responsibilities: [
-      "Architect and operate DevSecOps workflows, automating SAST (SonarQube), DAST (Burp Suite Pro, OWASP ZAP), SCA (Snyk) and template-based automated penetration testing using ProjectDiscovery Nuclei across enterprise CI/CD platforms (Azure DevOps, Jenkins, GitHub Actions, GitLab CI/CD, Bamboo)",
-      "Integrate container image scanning (Trivy, Grype, JFrog Xray) and secret/source scanning (Gitleaks, TruffleHog, git-secrets) to detect vulnerabilities and hard-coded secrets early in the SDLC",
-      "Design and implement secure CI/CD pipeline architecture with automated security gates, scan stages, artifact integrity checks and secrets management via Azure Key Vault",
-      "Standardize infrastructure provisioning using Terraform, Ansible and Azure Bicep/ARM templates, reducing configuration drift and improving deployment consistency",
-      "Design and implement an AI-driven IaC security scanning and remediation pipeline using Azure OpenAI and a custom knowledge base of secure vs. insecure Terraform/Bicep/ARM patterns",
-      "Implement automated open-source and license compliance scanning using ScanCode and ORT Scan (OSS Review Toolkit) to generate SBOMs, identify license/compliance risks and feed results into CI/CD reports and governance dashboards",
-      "Develop an AI-assisted secrets detection tool that processes large codebases into smaller chunks, calls an internal AI model (trained on company-specific sensitive terms and credential patterns) via API",
-      "Co-develop an AI-enforced LLM usage proxy for tools like ChatGPT and Claude by building a backend HTTP proxy server and Chrome extension that intercept user prompts for sensitive-content checks",
-      "Perform cloud security audits on Azure infrastructure, assessing IAM policies, network segmentation (NSGs, WAF, Application Gateway), configuration baselines and monitoring setups (Azure Monitor, Application Insights, Sumo Logic, ELK/EFK)",
-      "Lead full-stack design and development of an in-house security product using Python, Node.js, Go and MongoDB, deployed on Azure as containerized microservices (Docker, Kubernetes, Helm)",
-      "Implement Kubernetes security best practices (Pod Security Standards, CIS Kubernetes Benchmark validation) and automate web-application security testing, vulnerability tracking and reporting",
-      "Consult with enterprise clients across Europe and the US on application and cloud security posture, performing vulnerability assessments, risk prioritization, root-cause analysis and secure-coding guidance for development teams",
-      "Embed security and compliance frameworks (PCI DSS, NIST CSF, CIS Benchmarks, OWASP and, where applicable, ISO 27001, SOC 2, HIPAA, TX-RAMP) into IaC guardrails, pipeline policies, security checklists and code review processes",
-      "Design and maintain observability and security monitoring using Prometheus, Grafana, Sumo Logic and ELK/EFK, building dashboards and alerts for CI/CD pipelines, containerized workloads and Azure infrastructure",
-      "Conduct security testing and penetration testing (pentesting) for internal tools and platforms, providing detailed vulnerability analysis, remediation plans and secure-coding guidance",
-      "Lead team upskilling initiatives on DevSecOps practices, IaC security, Kubernetes hardening and vulnerability management through knowledge-sharing sessions and hands-on workshops"
-    ]
-  },
-  {
-    slug: "adaptive-biotechnologies",
-    company: "Adaptive Biotechnologies",
-    role: "Platform Engineer",
-    period: "July 2023 - Present",
-    date: "07/23 - Present",
-    summary: "Platform engineering for biotechnology infrastructure, containerizing applications on Kubernetes, supporting TX-RAMP and SOX compliance, and developing RAG-based developer tools.",
-    responsibilities: [
-      "Containerize applications and execute PoC validation and production deployments on Kubernetes using Terraform for infrastructure provisioning and Helm charts for application rollout, enabling repeatable, on-demand deployments",
-      "Support and optimize the Laboratory Information Management System (LIMS) infrastructure, including Linux servers, application services and databases, improving system reliability and reducing unplanned downtime for internal lab workflows",
-      "Automate application update and maintenance processes using Python, Selenium, shell scripting and SQL/T-SQL. Developed a centralized control application for nodes across diverse environments, reducing manual maintenance effort and human error",
-      "Support TX-RAMP and SOX compliance by implementing token and secret rotation workflows using application REST APIs, GitLab CI/CD pipelines and Azure Key Vault, with full audit logging and monitoring",
-      "Perform SOX application and user access reviews and prepare audit evidence",
-      "Configure Okta SSO (SAML/OIDC) integration for internal and third-party applications, aligning access controls with corporate policies. Integrate Linux servers and services with LDAP for centralized authentication and RBAC",
-      "Administer Azure Database for PostgreSQL, including version upgrades, rollbacks and performance tuning using pgBadger. Deploy and maintain analytics tooling (SQLPad, Redash, Apache Superset, CloudBeaver) to provide self-service data access for teams",
-      "Manage installation, upgrades and health monitoring of CrowdStrike sensors across servers and endpoints, ensuring endpoint security visibility for security operations",
-      "Administer cloud infrastructure on Microsoft Azure, leveraging Terraform and Ansible for provisioning, configuration management and deployment of platform services",
-      "Deploy, configure and maintain Linux systems and VMs, including certificate management, LDAP integration, mail configuration and Nginx reverse proxy for internal services",
-      "Configure and maintain Sumo Logic (log collection, monitors, alerts) and Checkmk for server-side monitoring, providing centralized observability and alerting for applications, servers and Kubernetes clusters",
-      "Manage feature flags and controlled rollouts using LaunchDarkly, supporting canary and staged deployments for platform features",
-      "Automate builds and deployments using GitLab CI/CD, Bamboo and Git-based workflows; collaborate with product, QA and lab teams via Jira to plan and track platform changes",
-      "Develop a local RAG-based chatbot for developers, integrating with Codex CLI and ChatGPT Enterprise to enable natural-language queries over code repositories and internal documentation"
-    ]
-  },
-  {
-    slug: "baxtor-credit-union",
-    company: "Baxtor Credit Union (BCU)",
-    role: "Cyber Security Engineer",
-    period: "April 2022 - January 2023",
-    date: "04/22 - 01/23",
-    summary: "End-to-end application security testing for finance domain workloads, covering SAST, SCA, DAST, manual penetration testing, and Azure cloud security audits against CIS Benchmarks.",
-    responsibilities: [
-      "Performed end-to-end application security testing for web, mobile and API workloads in the finance domain, covering SAST, SCA, DAST and manual penetration testing using tools such as Burp Suite, OWASP ZAP, Postman, Vooki, Yazhini, SonarQube and Snyk",
-      "Executed and tuned SAST/SCA scans, triaged results, de-duplicated and prioritized findings by risk/CVSS, wrote remediation guidance and worked with development teams to track fixes through to closure",
-      "Conducted manual web and API penetration testing, focusing on authentication, authorization, session management, input validation and business-logic flaws; created PoC exploits, documented impact and retested applications after fixes",
-      "Performed source code reviews for critical applications and APIs to validate security controls, identify vulnerable patterns and confirm remediation of high-risk issues",
-      "Carried out Azure cloud security audits against CIS Benchmarks, reviewing identity and access management, network security groups, storage configuration and logging, and produced formal reports with prioritized recommendations for the client's security and engineering teams"
-    ]
-  },
-  {
-    slug: "national-car-parks",
-    company: "National Car Parks (NCP)",
-    role: "Cyber Security Engineer",
-    period: "November 2021 - April 2022",
-    date: "11/21 - 04/22",
-    summary: "End-to-end security testing of web, mobile and API applications, CI/CD pipeline integration, and security automation proof-of-concepts.",
-    responsibilities: [
-      "Performed end-to-end security testing of web, mobile and API applications, covering SAST, SCA, DAST and manual penetration testing, and worked closely with development teams to remediate findings",
-      "Ran and tuned SAST/SCA tools in CI, triaged and prioritised results by risk, wrote clear remediation guidance and retested applications after fixes to confirm closure",
-      "Conducted manual web and API penetration testing focusing on authentication/authorization, session management, input validation and business-logic flaws; documented PoCs, impact and recommended mitigations",
-      "Integrated application security tools into the client's CI/CD pipelines using Azure DevOps, and built POC security stages in Jenkins to demonstrate automated scanning and gating of builds",
-      "Documented security testing procedures, tool usage and reporting templates, improving repeatability and knowledge transfer for the client's internal teams"
-    ]
-  }
-];
-
-export const allCases: CaseStudy[] = [
+const baseCases: BaseCase[] = [
   {
     slug: "gritgo-trading-bot",
     title: "Gritgo – Quant-Style Algorithmic Derivatives Trading Bot",
@@ -245,7 +156,115 @@ export const allCases: CaseStudy[] = [
       "Reduced button presses and wait times in lab testing",
       "Foundation for building-scale deployment"
     ]
+  },
+  {
+    slug: "self-balancing-wheel",
+    title: "Self-Balancing Single Wheel using a Mechanical Gyroscope",
+    date: "2019-2020",
+    client: "SASTRA University (Prototype)",
+    color: "darkGray",
+    summary: "A unicycle-style single-wheel vehicle that stays upright using a mechanical gyroscope based on the rigidity principle, with a Control Moment Gyroscope (CMG) providing steering and manoeuvrability.",
+    whatIDid: [
+      "Integrated the gyroscope assembly, wheel drive, sensors and an embedded controller",
+      "Continuously stabilised the wheel against external disturbances and surface inclination",
+      "Developed control logic to keep the wheel balanced and responsive",
+      "Collaborated on mechanical design, hardware integration and system testing, and documented behaviour and limitations"
+    ],
+    whyItMatters: "Targeted local transportation inside factories or homes, and formed the base for a future personal carrier robot.",
+    results: [
+      "Working prototype that balances against disturbances and inclines",
+      "Foundation for a personal carrier robot"
+    ]
+  },
+  {
+    slug: "leaf-identification-dl",
+    title: "Leaf Identification using Deep Learning",
+    date: "2019-2020",
+    client: "Academic Project",
+    color: "lime",
+    summary: "A CNN-based leaf identification system with a Raspberry Pi camera at the edge and an AWS-hosted inference service in the cloud.",
+    whatIDid: [
+      "Collected and pre-processed a leaf image dataset with augmentation and normalization",
+      "Trained a Convolutional Neural Network in Python for reliable leaf classification",
+      "Integrated a Raspberry Pi + camera that sends live images to an AWS-hosted inference service",
+      "Documented the workflow from data collection through training, deployment and on-device testing"
+    ],
+    whyItMatters: "An early end-to-end edge + cloud ML pipeline: capture, inference in the cloud, answer back on the device. That is the same deployment shape used for applied AI today.",
+    results: [
+      "End-to-end edge + cloud computer vision pipeline",
+      "Real-time species prediction returned to the device"
+    ]
   }
 ];
 
-export const featuredCases = allCases.slice(0, 4);
+
+
+interface CaseMeta {
+  track: Track[];
+  featured?: boolean;
+  /** Headline result shown on cards. Kept to the claims already published. */
+  headline: string;
+  stack: string[];
+}
+
+const meta: Record<string, CaseMeta> = {
+  "ai-iac-security-pipeline": {
+    track: ["ai", "platform"], featured: true,
+    headline: "60% less manual security review",
+    stack: ["Azure OpenAI", "Terraform", "Bicep", "ARM", "AKS", "ScanCode", "ORT"],
+  },
+  "ai-secrets-detection": {
+    track: ["ai", "platform"], featured: true,
+    headline: "75% fewer hard-coded secrets",
+    stack: ["Internal LLM", "Python", "Azure DevOps", "GitLab CI", "GitHub Actions", "Chrome extension"],
+  },
+  "git-rag-chatbot": {
+    track: ["ai"], featured: true,
+    headline: "Natural-language search over private repos",
+    stack: ["RAG", "ChromaDB", "Embeddings", "Gradio", "Codex CLI", "ChatGPT Enterprise", "Docker"],
+  },
+  "devsecops-security-product": {
+    track: ["platform"], featured: true,
+    headline: "50% lower security tooling cost",
+    stack: ["Python", "Node.js", "Go", "MongoDB", "Kubernetes", "Helm", "Prometheus", "Grafana"],
+  },
+  "gritgo-trading-bot": {
+    track: ["ai", "platform"], featured: true,
+    headline: "Live, end-to-end quant platform",
+    stack: ["Python", "Flask", "Kafka", "TimescaleDB", "n8n", "OpenAlgo", "AWS", "Azure", "GCP"],
+  },
+  "smart-elevator-ml": {
+    track: ["ai"],
+    headline: "Contactless floor prediction prototype",
+    stack: ["Raspberry Pi", "Arduino", "ESP8266", "RFID", "OpenCV", "ML"],
+  },
+  "self-balancing-wheel": {
+    track: ["platform"],
+    headline: "Gyro-stabilised single wheel prototype",
+    stack: ["Embedded C", "CMG", "Sensors", "Control systems"],
+  },
+  "leaf-identification-dl": {
+    track: ["ai"],
+    headline: "Edge + cloud CNN pipeline",
+    stack: ["Python", "CNN", "Raspberry Pi", "AWS"],
+  },
+};
+
+export type CaseStudy = BaseCase & CaseMeta;
+
+export const allCases: CaseStudy[] = baseCases.map((c) => ({
+  ...c,
+  ...(meta[c.slug] ?? { track: ["platform"], headline: c.summary.slice(0, 60), stack: [] }),
+}));
+
+// Featured order on the home page: AI-forward first.
+const featuredOrder = [
+  "ai-iac-security-pipeline",
+  "ai-secrets-detection",
+  "git-rag-chatbot",
+  "gritgo-trading-bot",
+  "devsecops-security-product",
+];
+export const featuredCases: CaseStudy[] = featuredOrder
+  .map((s) => allCases.find((c) => c.slug === s))
+  .filter((c): c is CaseStudy => Boolean(c));

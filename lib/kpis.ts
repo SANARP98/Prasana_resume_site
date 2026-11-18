@@ -1,5 +1,9 @@
 import kpisData from "@/kpis.json";
-import { KPI } from "@/components/KPIDisplay";
+export interface KPI {
+  label: string;
+  value: string;
+  description: string;
+}
 
 export interface ExperienceKPIs {
   id: string;
@@ -94,4 +98,9 @@ export const experienceSlugToKPIId: Record<string, string> = {
 
 export function getKPIIdFromSlug(slug: string): string {
   return experienceSlugToKPIId[slug] || slug;
+}
+
+export function getKPIsForCase(caseSlug: string): KPI[] {
+  const p = Object.values(kpisData.projects).find((x) => x.id === caseSlug);
+  return p?.kpis ?? [];
 }

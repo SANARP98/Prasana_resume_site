@@ -1,54 +1,45 @@
 import type { Config } from "tailwindcss";
 
+// Colours are CSS variables (RGB triplets) defined in app/globals.css so that
+// light and dark themes share one set of class names.
+const v = (name: string) => `rgb(var(--${name}) / <alpha-value>)`;
+
 const config: Config = {
+  darkMode: "class",
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./data/**/*.{ts,tsx}",
   ],
   theme: {
     extend: {
       colors: {
-        cream: '#f6f7f1',
-        darkGray: '#333333',
-        mediumGray: '#777777',
-        accent: '#1020cc',
-        caseColors: {
-          darkGray: '#2d2d2d',
-          pink: '#ff6b9d',
-          purple: '#8b5cf6',
-          cyan: '#00d9ff',
-          red: '#ff3b30',
-          lime: '#32d74b',
-        }
+        bg: v("bg"),
+        surface: v("surface"),
+        fg: v("fg"),
+        muted: v("muted"),
+        line: v("line"),
+        accent: v("accent"),
+        ai: v("ai"),
+        ok: v("ok"),
+        // Legacy names kept so the admin dashboard keeps working (and themes).
+        cream: v("bg"),
+        darkGray: v("fg"),
+        mediumGray: v("muted"),
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        mono: ['DM Mono', 'monospace'],
+        sans: ["var(--font-inter, Inter)", "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
+        mono: ["var(--font-mono, 'DM Mono')", "ui-monospace", "SFMono-Regular", "monospace"],
       },
-      spacing: {
-        '70': '70px',
-      },
-      maxWidth: {
-        'container': '1200px',
-      },
-      letterSpacing: {
-        'tighter': '-0.04em',
-      },
-      lineHeight: {
-        'tight': '1.2',
-        'snug': '1.375',
-        'normal': '1.6',
-        'relaxed': '1.7',
-        'loose': '1.875',
-      },
-      transitionDuration: {
-        '400': '400ms',
-        '600': '600ms',
+      spacing: { "70": "70px" },
+      maxWidth: { container: "1200px" },
+      letterSpacing: { tighter: "-0.04em" },
+      boxShadow: {
+        glow: "0 0 0 1px rgb(var(--ai) / 0.25), 0 8px 30px -8px rgb(var(--ai) / 0.35)",
+        lift: "0 12px 32px -12px rgb(var(--fg) / 0.25)",
       },
       transitionTimingFunction: {
-        'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)',
-        'bounce-smooth': 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+        smooth: "cubic-bezier(0.4, 0, 0.2, 1)",
       },
     },
   },

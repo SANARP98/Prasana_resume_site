@@ -1,312 +1,65 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
-import { useState } from "react";
-
-interface SkillCategory {
-  title: string;
-  skills: string[];
-}
-
-const skillCategories: SkillCategory[] = [
-  {
-    title: "Cloud & Infrastructure",
-    skills: [
-      "Microsoft Azure",
-      "Azure DevOps Services",
-      "Azure Key Vault",
-      "Azure Monitor",
-      "Application Insights",
-      "Azure Container Registry",
-      "Network Watcher",
-      "Azure Traffic Manager",
-      "Azure Web Applications Firewall (WAF)",
-      "Azure Application Gateway",
-      "Azure Resource Manager (ARM)",
-      "Azure Bicep",
-      "Terraform",
-      "Ansible",
-      "Azure Database for PostgreSQL"
-    ]
-  },
-  {
-    title: "Containers & Kubernetes",
-    skills: [
-      "Docker",
-      "Kubernetes",
-      "Helm",
-      "Helm Charts",
-      "Container Registries",
-      "Container Networking",
-      "Container Security",
-      "Pod Security",
-      "Deployments",
-      "StatefulSets",
-      "Jobs",
-      "Kubernetes Readiness/Liveness Probes"
-    ]
-  },
-  {
-    title: "CI/CD & Pipeline Security",
-    skills: [
-      "Azure DevOps",
-      "GitHub Actions",
-      "GitLab CI/CD",
-      "Bamboo",
-      "Secure Pipeline Design",
-      "Automated Security Gates",
-      "Artifact Scanning",
-      "Container Image Scanning",
-      "Secrets Management",
-      "GitOps"
-    ]
-  },
-  {
-    title: "Security & Compliance",
-    skills: [
-      "DevSecOps",
-      "SAST / DAST / SCA Automation",
-      "Web Application Penetration Testing",
-      "Cloud Security Audits",
-      "Security Architecture",
-      "Vulnerability Assessment & Remediation",
-      "Kubernetes Security",
-      "SBOM Generation & Verification",
-      "Secrets Detection (AI-driven)",
-      "PCI DSS",
-      "NIST CSF",
-      "ISO 27001",
-      "SOC 2",
-      "HIPAA",
-      "TX-RAMP",
-      "CIS Benchmarks",
-      "OWASP"
-    ]
-  },
-  {
-    title: "Security Tools & Scanning",
-    skills: [
-      "SonaQube",
-      "Burp Suite Pro",
-      "OWASP ZAP",
-      "Trivy",
-      "Grype",
-      "Styyk",
-      "Checkov",
-      "JFrog Xray",
-      "ScanCode",
-      "ORT Scan (OSS Review Toolkit)",
-      "Nerdctl",
-      "Trufflehog",
-      "git-secrets",
-      "Nmap",
-      "OpenVAS",
-      "Nessus",
-      "Azure OpenAI (AI-driven IaC and security automation)"
-    ]
-  },
-  {
-    title: "AI, LLM & RAG Systems",
-    skills: [
-      "Retrieval-Augmented Generation (RAG)",
-      "ChromaDB",
-      "Vector Databases",
-      "Embeddings",
-      "Git Repository Indexing",
-      "Code Chunking & Metadata Design",
-      "Codex CLI",
-      "ChatGPT Enterprise",
-      "Grazily",
-      "AI-driven IaC Scanning & Remediation",
-      "AI-assisted Secrets Detection",
-      "LLM Usage Proxy / Guardian Systems"
-    ]
-  },
-  {
-    title: "Observability & Monitoring",
-    skills: [
-      "Prometheus",
-      "Grafana",
-      "ELK Stack",
-      "Azure Monitor",
-      "Application Insights",
-      "Microsoft Sentinel",
-      "Log Aggregation",
-      "Alert Management",
-      "Dashboard Design"
-    ]
-  },
-  {
-    title: "Infrastructure as Code (IaC) & Automation",
-    skills: [
-      "Terraform",
-      "Ansible",
-      "Azure Bicep",
-      "ARM Templates",
-      "Git",
-      "Git Workflows (branching, pull requests, code review)",
-      "Bash Scripting",
-      "Infrastructure Provisioning",
-      "Configuration Management",
-      "Policy as Code (Checkov, Sentinel)"
-    ]
-  },
-  {
-    title: "Backend Development & APIs",
-    skills: [
-      "Python",
-      "Node.js",
-      "Go",
-      "Flask",
-      "REST APIs",
-      "Microservices Architecture",
-      "API Security",
-      "HTTP Proxy Services",
-      "Production Deployment"
-    ]
-  },
-  {
-    title: "Databases & Messaging",
-    skills: [
-      "PostgreSQL",
-      "Azure Database for PostgreSQL",
-      "MongoDB",
-      "TimeseriesDB",
-      "SQLite",
-      "MySQL",
-      "Apache Kafka",
-      "pgbadger",
-      "SQLPad",
-      "Redash",
-      "Apache Superset",
-      "CloudBeaver",
-      "Database Security",
-      "Event-Driven Architecture"
-    ]
-  },
-  {
-    title: "DevOps & Best Practices",
-    skills: [
-      "Linux",
-      "Nginx",
-      "Docker Compose",
-      "Blue-Green Deployments",
-      "Canary Deployments",
-      "Health Checks",
-      "Auto-Scaling",
-      "Load Balancing",
-      "Chrome Extension Integration",
-      "Developer Productivity / DevEx Tools"
-    ]
-  },
-  {
-    title: "Collaboration & Project Management",
-    skills: [
-      "Git",
-      "GitHub",
-      "Visual Studio Code",
-      "Cross-functional Collaboration",
-      "Stakeholder Management"
-    ]
-  }
-];
-
-function SkillCategoryCard({ category, index }: { category: SkillCategory; index: number }) {
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.05 }}
-      className="border border-darkGray/10 rounded-lg overflow-hidden"
-    >
-      {/* Category Header */}
-      <button
-        onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full px-6 py-4 flex items-center justify-between hover:bg-darkGray/5 transition-colors"
-      >
-        <h3 className="text-lg font-bold text-darkGray">{category.title}</h3>
-        <div className="flex items-center gap-3">
-          <span className="text-xs text-mediumGray">{category.skills.length} skills</span>
-          <motion.span
-            animate={{ rotate: isExpanded ? 90 : 0 }}
-            transition={{ duration: 0.2 }}
-            className="text-accent text-xl"
-          >
-            →
-          </motion.span>
-        </div>
-      </button>
-
-      {/* Expandable Skills List */}
-      <motion.div
-        initial={false}
-        animate={{
-          height: isExpanded ? "auto" : 0,
-          opacity: isExpanded ? 1 : 0
-        }}
-        transition={{ duration: 0.3 }}
-        className="overflow-hidden"
-      >
-        <div className="px-6 py-4 bg-cream border-t border-darkGray/10">
-          <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {category.skills.map((skill, idx) => (
-              <motion.li
-                key={idx}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.2, delay: idx * 0.02 }}
-                className="flex items-start gap-2 text-sm text-mediumGray"
-              >
-                <span className="text-accent mt-1 text-xs">•</span>
-                <span>{skill}</span>
-              </motion.li>
-            ))}
-          </ul>
-        </div>
-      </motion.div>
-    </motion.div>
-  );
-}
+import { useMemo, useState } from "react";
+import { skillCategories } from "@/data/skills";
+import { TrackTag } from "@/components/ui";
 
 export default function SkillsPage() {
+  const [q, setQ] = useState("");
+  const total = skillCategories.reduce((n, c) => n + c.skills.length, 0);
+
+  const filtered = useMemo(() => {
+    const n = q.trim().toLowerCase();
+    if (!n) return skillCategories;
+    return skillCategories
+      .map((c) => ({ ...c, skills: c.skills.filter((s) => s.toLowerCase().includes(n) || c.title.toLowerCase().includes(n)) }))
+      .filter((c) => c.skills.length);
+  }, [q]);
+
+  const hits = filtered.reduce((n, c) => n + c.skills.length, 0);
+
   return (
-    <div className="container-custom py-20">
-      {/* Back Link */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3 }}
-        className="mb-8"
-      >
-        <Link
-          href="/"
-          className="text-sm uppercase text-mediumGray hover:text-accent transition-colors"
-        >
-          ← Home
-        </Link>
-      </motion.div>
+    <div className="container-custom py-16">
+      <Link href="/" className="eyebrow hover:text-accent">← Home</Link>
+      <h1 className="mt-4 text-4xl sm:text-5xl">Skills & technologies</h1>
+      <p className="mt-3 max-w-2xl text-muted">
+        {total} tools and practices across {skillCategories.length} categories. AI is listed first, platform after it.
+      </p>
 
-      {/* Title */}
-      <motion.header
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="mb-12"
-      >
-        <h1 className="text-5xl font-black mb-4">Skills & Technologies</h1>
-        <p className="text-lg text-mediumGray max-w-2xl">
-          Comprehensive list of technologies, tools, and frameworks I work with across DevSecOps, Cloud Security, and AI-driven automation.
-        </p>
-      </motion.header>
+      <label className="mt-8 block max-w-md">
+        <span className="sr-only">Filter skills</span>
+        <input
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          placeholder="grep skills: terraform, rag, sox…"
+          className="w-full rounded-md border border-line/15 bg-surface px-3 py-2.5 font-mono text-sm placeholder:text-muted focus:border-accent focus:outline-none"
+        />
+      </label>
+      <p className="mt-2 font-mono text-[11px] text-muted" aria-live="polite">
+        {q ? `${hits} match${hits === 1 ? "" : "es"}` : " "}
+      </p>
 
-      {/* Skills Grid */}
-      <div className="space-y-4">
-        {skillCategories.map((category, index) => (
-          <SkillCategoryCard key={category.title} category={category} index={index} />
+      <div className="mt-6 columns-1 gap-5 md:columns-2">
+        {filtered.map((c) => (
+          <section
+            key={c.title}
+            className={`mb-5 break-inside-avoid p-6 ${c.track === "ai" ? "rounded-3xl border border-ai/25" : "rounded-md border border-ok/25"}`}
+          >
+            <div className="mb-4 flex items-center justify-between gap-3">
+              <h2 className="text-lg tracking-tight">{c.title}</h2>
+              <TrackTag track={c.track}>{c.skills.length}</TrackTag>
+            </div>
+            <ul className="flex flex-wrap gap-1.5">
+              {c.skills.map((s) => (
+                <li key={s} className={c.track === "ai" ? "tag-ai" : "tag-platform"}>{s}</li>
+              ))}
+            </ul>
+          </section>
         ))}
+        {filtered.length === 0 && (
+          <p className="text-sm text-muted">No match. If it&apos;s important, I can probably learn it before the onsite.</p>
+        )}
       </div>
     </div>
   );
